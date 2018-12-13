@@ -1,0 +1,179 @@
+Using TensorFlow backend.
+
+Creating model from scratch
+2018-12-06 10:10:07.628568: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1105] Found device 0 with properties: 
+name: GeForce GTX 1060 6GB major: 6 minor: 1 memoryClockRate(GHz): 1.835
+pciBusID: 0000:01:00.0
+totalMemory: 5.93GiB freeMemory: 5.15GiB
+2018-12-06 10:10:07.628616: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1195] Creating TensorFlow device (/device:GPU:0) -> (device: 0, name: GeForce GTX 1060 6GB, pci bus id: 0000:01:00.0, compute capability: 6.1)
+/home/charles/tensorflow/lib/python3.6/site-packages/keras_applications/resnet50.py:265: UserWarning: The output shape of `ResNet50(include_top=False)` has been changed since Keras 2.2.0.
+  warnings.warn('The output shape of `ResNet50(include_top=False)` '
+  model ready for use
+
+Generating dataset
+  Populating class dict
+  Populating partition and labels dicts
+    partition name: train, list length: 3334
+    partition name: val, list length: 3333
+    partition name: test, list length: 3333
+  Results:
+    partition_dict len: 3
+    labels_dict len: 10000
+    class_dict len: 100
+
+Model Details
+  Name: resnet50 rev-6-d
+  Total layers: 181
+  Non-trainable layers: 79
+  Top Architecture:
+    flatten_1	(None, 100352)
+    dense_1	(None, 512)
+    dropout_1	(None, 512)
+    dense_2	(None, 256)
+    dropout_2	(None, 256)
+    dense_3	(None, 100)
+  Number classes: 100
+  Optimizer : adam
+    Learning rate: 0.0001
+  Image shape: (224, 224, 3)
+  Training partitions: ['train', 'val']
+  Training images: 6667
+  Test partitions: ['test']
+  Test images: 3333
+  Augmentation: True
+  Batch size: 16
+  Epochs: 64
+  Run mode: train
+
+Epoch 1/64
+  1/416 [..............................] - ETA: 1:05:22 - loss: 9.4232 - top_1_accuracy: 0.0000e+00 - top_5_accuracy: 0.0000e+  2/416 [..............................] - ETA: 33:33 - loss: 8.5709 - top_1_accuracy: 0.0000e+00 - top_5_accuracy: 0.0000e+00416/416 [==============================] - 126s 303ms/step - loss: 4.7963 - top_1_accuracy: 0.0116 - top_5_accuracy: 0.0475   
+Epoch 2/64
+416/416 [==============================] - 118s 283ms/step - loss: 4.6112 - top_1_accuracy: 0.0092 - top_5_accuracy: 0.0467
+Epoch 3/64
+416/416 [==============================] - 120s 289ms/step - loss: 4.5944 - top_1_accuracy: 0.0153 - top_5_accuracy: 0.0557
+Epoch 4/64
+416/416 [==============================] - 116s 278ms/step - loss: 4.5701 - top_1_accuracy: 0.0173 - top_5_accuracy: 0.0646   
+Epoch 5/64
+416/416 [==============================] - 117s 281ms/step - loss: 4.5385 - top_1_accuracy: 0.0269 - top_5_accuracy: 0.0771
+Epoch 6/64
+416/416 [==============================] - 116s 279ms/step - loss: 4.5193 - top_1_accuracy: 0.0309 - top_5_accuracy: 0.0855
+Epoch 7/64
+416/416 [==============================] - 117s 281ms/step - loss: 4.4562 - top_1_accuracy: 0.0382 - top_5_accuracy: 0.1013   
+Epoch 8/64
+416/416 [==============================] - 116s 280ms/step - loss: 4.3743 - top_1_accuracy: 0.0515 - top_5_accuracy: 0.1333
+Epoch 9/64
+416/416 [==============================] - 117s 282ms/step - loss: 4.2941 - top_1_accuracy: 0.0651 - top_5_accuracy: 0.1567
+Epoch 10/64
+416/416 [==============================] - 116s 279ms/step - loss: 4.1695 - top_1_accuracy: 0.0879 - top_5_accuracy: 0.1908
+Epoch 11/64
+416/416 [==============================] - 117s 281ms/step - loss: 4.0834 - top_1_accuracy: 0.1080 - top_5_accuracy: 0.2103
+Epoch 12/64
+416/416 [==============================] - 118s 284ms/step - loss: 4.0244 - top_1_accuracy: 0.1170 - top_5_accuracy: 0.2263
+Epoch 13/64
+416/416 [==============================] - 117s 282ms/step - loss: 3.9500 - top_1_accuracy: 0.1289 - top_5_accuracy: 0.2435
+Epoch 14/64
+416/416 [==============================] - 119s 285ms/step - loss: 3.8701 - top_1_accuracy: 0.1480 - top_5_accuracy: 0.2668
+Epoch 15/64
+416/416 [==============================] - 120s 288ms/step - loss: 3.8092 - top_1_accuracy: 0.1627 - top_5_accuracy: 0.2852
+Epoch 16/64
+416/416 [==============================] - 119s 285ms/step - loss: 3.7366 - top_1_accuracy: 0.1765 - top_5_accuracy: 0.3011
+Epoch 17/64
+416/416 [==============================] - 117s 281ms/step - loss: 3.6469 - top_1_accuracy: 0.1935 - top_5_accuracy: 0.3265
+Epoch 18/64
+416/416 [==============================] - 117s 280ms/step - loss: 3.5456 - top_1_accuracy: 0.2120 - top_5_accuracy: 0.3401
+Epoch 19/64
+416/416 [==============================] - 117s 282ms/step - loss: 3.4732 - top_1_accuracy: 0.2201 - top_5_accuracy: 0.3661
+Epoch 20/64
+416/416 [==============================] - 120s 288ms/step - loss: 3.3831 - top_1_accuracy: 0.2417 - top_5_accuracy: 0.3879
+Epoch 21/64
+416/416 [==============================] - 117s 282ms/step - loss: 3.3123 - top_1_accuracy: 0.2541 - top_5_accuracy: 0.4031
+Epoch 22/64
+416/416 [==============================] - 118s 284ms/step - loss: 3.2325 - top_1_accuracy: 0.2671 - top_5_accuracy: 0.4217
+Epoch 23/64
+416/416 [==============================] - 119s 285ms/step - loss: 3.1464 - top_1_accuracy: 0.2849 - top_5_accuracy: 0.4501
+Epoch 24/64
+416/416 [==============================] - 118s 285ms/step - loss: 3.0712 - top_1_accuracy: 0.2904 - top_5_accuracy: 0.4573
+Epoch 25/64
+416/416 [==============================] - 119s 285ms/step - loss: 2.9593 - top_1_accuracy: 0.3200 - top_5_accuracy: 0.4940
+Epoch 26/64
+416/416 [==============================] - 117s 282ms/step - loss: 2.8642 - top_1_accuracy: 0.3290 - top_5_accuracy: 0.5165
+Epoch 27/64
+416/416 [==============================] - 119s 286ms/step - loss: 2.7871 - top_1_accuracy: 0.3415 - top_5_accuracy: 0.5279
+Epoch 28/64
+416/416 [==============================] - 116s 279ms/step - loss: 2.6973 - top_1_accuracy: 0.3601 - top_5_accuracy: 0.5455
+Epoch 29/64
+416/416 [==============================] - 117s 282ms/step - loss: 2.6633 - top_1_accuracy: 0.3684 - top_5_accuracy: 0.5574
+Epoch 30/64
+416/416 [==============================] - 117s 281ms/step - loss: 2.5659 - top_1_accuracy: 0.3851 - top_5_accuracy: 0.5876
+Epoch 31/64
+416/416 [==============================] - 118s 284ms/step - loss: 2.5176 - top_1_accuracy: 0.3890 - top_5_accuracy: 0.6022
+Epoch 32/64
+416/416 [==============================] - 117s 281ms/step - loss: 2.3526 - top_1_accuracy: 0.4171 - top_5_accuracy: 0.6357
+Epoch 33/64
+416/416 [==============================] - 119s 286ms/step - loss: 2.3218 - top_1_accuracy: 0.4285 - top_5_accuracy: 0.6388
+Epoch 34/64
+416/416 [==============================] - 117s 281ms/step - loss: 2.2920 - top_1_accuracy: 0.4429 - top_5_accuracy: 0.6478
+Epoch 35/64
+416/416 [==============================] - 118s 283ms/step - loss: 2.1684 - top_1_accuracy: 0.4551 - top_5_accuracy: 0.6713
+Epoch 36/64
+416/416 [==============================] - 116s 280ms/step - loss: 2.0521 - top_1_accuracy: 0.4785 - top_5_accuracy: 0.6904
+Epoch 37/64
+416/416 [==============================] - 117s 281ms/step - loss: 2.0017 - top_1_accuracy: 0.4865 - top_5_accuracy: 0.7064
+Epoch 38/64
+416/416 [==============================] - 117s 281ms/step - loss: 1.9752 - top_1_accuracy: 0.5000 - top_5_accuracy: 0.7151
+Epoch 39/64
+416/416 [==============================] - 116s 280ms/step - loss: 1.9102 - top_1_accuracy: 0.5084 - top_5_accuracy: 0.7303
+Epoch 40/64
+416/416 [==============================] - 117s 282ms/step - loss: 1.8605 - top_1_accuracy: 0.5210 - top_5_accuracy: 0.7411
+Epoch 41/64
+416/416 [==============================] - 116s 279ms/step - loss: 1.8834 - top_1_accuracy: 0.5218 - top_5_accuracy: 0.7503
+Epoch 42/64
+416/416 [==============================] - 117s 282ms/step - loss: 1.8224 - top_1_accuracy: 0.5282 - top_5_accuracy: 0.7449
+Epoch 43/64
+416/416 [==============================] - 116s 280ms/step - loss: 1.7396 - top_1_accuracy: 0.5431 - top_5_accuracy: 0.7656
+Epoch 44/64
+416/416 [==============================] - 116s 279ms/step - loss: 1.7015 - top_1_accuracy: 0.5574 - top_5_accuracy: 0.7769
+Epoch 45/64
+416/416 [==============================] - 116s 278ms/step - loss: 1.7014 - top_1_accuracy: 0.5611 - top_5_accuracy: 0.7734
+Epoch 46/64
+416/416 [==============================] - 117s 281ms/step - loss: 1.7639 - top_1_accuracy: 0.5639 - top_5_accuracy: 0.7767
+Epoch 47/64
+416/416 [==============================] - 115s 278ms/step - loss: 1.6844 - top_1_accuracy: 0.5625 - top_5_accuracy: 0.7802
+Epoch 48/64
+416/416 [==============================] - 117s 280ms/step - loss: 1.5830 - top_1_accuracy: 0.5892 - top_5_accuracy: 0.8062
+Epoch 49/64
+416/416 [==============================] - 115s 277ms/step - loss: 1.4278 - top_1_accuracy: 0.6181 - top_5_accuracy: 0.8245
+Epoch 50/64
+416/416 [==============================] - 116s 280ms/step - loss: 1.3654 - top_1_accuracy: 0.6238 - top_5_accuracy: 0.8480
+Epoch 51/64
+416/416 [==============================] - 115s 277ms/step - loss: 1.2204 - top_1_accuracy: 0.6525 - top_5_accuracy: 0.8744
+Epoch 52/64
+416/416 [==============================] - 116s 278ms/step - loss: 1.1744 - top_1_accuracy: 0.6654 - top_5_accuracy: 0.8813
+Epoch 53/64
+416/416 [==============================] - 115s 277ms/step - loss: 1.1197 - top_1_accuracy: 0.6768 - top_5_accuracy: 0.8933
+Epoch 54/64
+416/416 [==============================] - 116s 278ms/step - loss: 1.1066 - top_1_accuracy: 0.6837 - top_5_accuracy: 0.9032
+Epoch 55/64
+416/416 [==============================] - 116s 278ms/step - loss: 1.0298 - top_1_accuracy: 0.6989 - top_5_accuracy: 0.9126
+Epoch 56/64
+416/416 [==============================] - 116s 280ms/step - loss: 0.9654 - top_1_accuracy: 0.7163 - top_5_accuracy: 0.9252
+Epoch 57/64
+416/416 [==============================] - 115s 278ms/step - loss: 0.9493 - top_1_accuracy: 0.7234 - top_5_accuracy: 0.9238
+Epoch 58/64
+416/416 [==============================] - 116s 280ms/step - loss: 0.8950 - top_1_accuracy: 0.7369 - top_5_accuracy: 0.9370
+Epoch 59/64
+416/416 [==============================] - 115s 277ms/step - loss: 0.8688 - top_1_accuracy: 0.7465 - top_5_accuracy: 0.9336
+Epoch 60/64
+416/416 [==============================] - 117s 280ms/step - loss: 0.8182 - top_1_accuracy: 0.7590 - top_5_accuracy: 0.9408
+Epoch 61/64
+416/416 [==============================] - 116s 279ms/step - loss: 0.8291 - top_1_accuracy: 0.7527 - top_5_accuracy: 0.9387
+Epoch 62/64
+416/416 [==============================] - 116s 279ms/step - loss: 0.7742 - top_1_accuracy: 0.7719 - top_5_accuracy: 0.9461
+Epoch 63/64
+416/416 [==============================] - 116s 279ms/step - loss: 0.7511 - top_1_accuracy: 0.7784 - top_5_accuracy: 0.9498
+Epoch 64/64
+416/416 [==============================] - 116s 278ms/step - loss: 0.7166 - top_1_accuracy: 0.7865 - top_5_accuracy: 0.9524
+Saving resnet50 rev-6-d weights to disk
+  save operation complete
+Training elapsed time: 02:05:20.034
+

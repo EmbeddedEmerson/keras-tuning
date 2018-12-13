@@ -1,0 +1,113 @@
+Using TensorFlow backend.
+
+Creating model from scratch
+2018-12-07 07:22:17.630543: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1105] Found device 0 with properties: 
+name: GeForce GTX 1060 6GB major: 6 minor: 1 memoryClockRate(GHz): 1.835
+pciBusID: 0000:01:00.0
+totalMemory: 5.93GiB freeMemory: 5.13GiB
+2018-12-07 07:22:17.630591: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1195] Creating TensorFlow device (/device:GPU:0) -> (device: 0, name: GeForce GTX 1060 6GB, pci bus id: 0000:01:00.0, compute capability: 6.1)
+/home/charles/tensorflow/lib/python3.6/site-packages/keras_applications/resnet50.py:265: UserWarning: The output shape of `ResNet50(include_top=False)` has been changed since Keras 2.2.0.
+  warnings.warn('The output shape of `ResNet50(include_top=False)` '
+  model ready for use
+
+Generating dataset
+  Populating class dict
+  Populating partition and labels dicts
+    partition name: train, list length: 3334
+    partition name: val, list length: 3333
+    partition name: test, list length: 3333
+  Results:
+    partition_dict len: 3
+    labels_dict len: 10000
+    class_dict len: 100
+
+Model Details
+  Name: resnet50 rev-6-e
+  Total layers: 179
+  Non-trainable layers: 79
+  Top Architecture:
+    global_average_pooling2d_1	(None, 2048)
+    dense_1	(None, 1024)
+    dropout_1	(None, 1024)
+    dense_2	(None, 100)
+  Number classes: 100
+  Optimizer : adam
+    Learning rate: 0.0001
+  Image shape: (224, 224, 3)
+  Training partitions: ['train', 'val']
+  Training images: 6667
+  Test partitions: ['test']
+  Test images: 3333
+  Augmentation: True
+  Batch size: 16
+  Epochs: 32
+  Run mode: train
+
+Epoch 1/32
+416/416 [==============================] - 121s 291ms/step - loss: 4.1984 - top_1_accuracy: 0.0840 - top_5_accuracy: 0.2252 
+Epoch 2/32
+416/416 [==============================] - 149s 358ms/step - loss: 2.8792 - top_1_accuracy: 0.2895 - top_5_accuracy: 0.5673
+Epoch 3/32
+416/416 [==============================] - 109s 263ms/step - loss: 2.2918 - top_1_accuracy: 0.4114 - top_5_accuracy: 0.6968
+Epoch 4/32
+416/416 [==============================] - 119s 287ms/step - loss: 1.8403 - top_1_accuracy: 0.5173 - top_5_accuracy: 0.7736
+Epoch 5/32
+416/416 [==============================] - 107s 257ms/step - loss: 1.6180 - top_1_accuracy: 0.5717 - top_5_accuracy: 0.8081
+Epoch 6/32
+416/416 [==============================] - 105s 254ms/step - loss: 1.3984 - top_1_accuracy: 0.6325 - top_5_accuracy: 0.8383
+Epoch 7/32
+416/416 [==============================] - 105s 254ms/step - loss: 1.4297 - top_1_accuracy: 0.6261 - top_5_accuracy: 0.8296
+Epoch 8/32
+416/416 [==============================] - 103s 247ms/step - loss: 1.2511 - top_1_accuracy: 0.6738 - top_5_accuracy: 0.8484
+Epoch 9/32
+416/416 [==============================] - 105s 252ms/step - loss: 1.1636 - top_1_accuracy: 0.6950 - top_5_accuracy: 0.8709
+Epoch 10/32
+416/416 [==============================] - 104s 250ms/step - loss: 1.0374 - top_1_accuracy: 0.7231 - top_5_accuracy: 0.8873
+Epoch 11/32
+416/416 [==============================] - 106s 255ms/step - loss: 0.9900 - top_1_accuracy: 0.7428 - top_5_accuracy: 0.8873
+Epoch 12/32
+416/416 [==============================] - 103s 247ms/step - loss: 0.9307 - top_1_accuracy: 0.7556 - top_5_accuracy: 0.8998
+Epoch 13/32
+416/416 [==============================] - 106s 254ms/step - loss: 0.8906 - top_1_accuracy: 0.7646 - top_5_accuracy: 0.9052
+Epoch 14/32
+416/416 [==============================] - 110s 265ms/step - loss: 0.8246 - top_1_accuracy: 0.7825 - top_5_accuracy: 0.9150
+Epoch 15/32
+416/416 [==============================] - 110s 263ms/step - loss: 0.8285 - top_1_accuracy: 0.7831 - top_5_accuracy: 0.9091
+Epoch 16/32
+416/416 [==============================] - 110s 265ms/step - loss: 0.7864 - top_1_accuracy: 0.7904 - top_5_accuracy: 0.9192
+Epoch 17/32
+416/416 [==============================] - 110s 263ms/step - loss: 0.8212 - top_1_accuracy: 0.7805 - top_5_accuracy: 0.9135
+Epoch 18/32
+416/416 [==============================] - 109s 263ms/step - loss: 0.7378 - top_1_accuracy: 0.8045 - top_5_accuracy: 0.9246
+Epoch 19/32
+416/416 [==============================] - 108s 260ms/step - loss: 0.6629 - top_1_accuracy: 0.8257 - top_5_accuracy: 0.9369
+Epoch 20/32
+416/416 [==============================] - 123s 295ms/step - loss: 0.6564 - top_1_accuracy: 0.8161 - top_5_accuracy: 0.9392
+Epoch 21/32
+416/416 [==============================] - 131s 315ms/step - loss: 0.5957 - top_1_accuracy: 0.8370 - top_5_accuracy: 0.9458
+Epoch 22/32
+416/416 [==============================] - 112s 269ms/step - loss: 0.5332 - top_1_accuracy: 0.8540 - top_5_accuracy: 0.9516
+Epoch 23/32
+416/416 [==============================] - 132s 316ms/step - loss: 0.5696 - top_1_accuracy: 0.8471 - top_5_accuracy: 0.9539
+Epoch 24/32
+416/416 [==============================] - 120s 288ms/step - loss: 0.4997 - top_1_accuracy: 0.8592 - top_5_accuracy: 0.9605
+Epoch 25/32
+416/416 [==============================] - 117s 281ms/step - loss: 0.5252 - top_1_accuracy: 0.8547 - top_5_accuracy: 0.9554
+Epoch 26/32
+416/416 [==============================] - 117s 281ms/step - loss: 0.4607 - top_1_accuracy: 0.8694 - top_5_accuracy: 0.9642
+Epoch 27/32
+416/416 [==============================] - 109s 262ms/step - loss: 0.4513 - top_1_accuracy: 0.8767 - top_5_accuracy: 0.9660
+Epoch 28/32
+416/416 [==============================] - 123s 296ms/step - loss: 0.4551 - top_1_accuracy: 0.8736 - top_5_accuracy: 0.9660
+Epoch 29/32
+416/416 [==============================] - 108s 261ms/step - loss: 0.3865 - top_1_accuracy: 0.8918 - top_5_accuracy: 0.9752
+Epoch 30/32
+416/416 [==============================] - 108s 259ms/step - loss: 0.3603 - top_1_accuracy: 0.8981 - top_5_accuracy: 0.9773
+Epoch 31/32
+416/416 [==============================] - 107s 256ms/step - loss: 0.4221 - top_1_accuracy: 0.8788 - top_5_accuracy: 0.9721
+Epoch 32/32
+416/416 [==============================] - 105s 253ms/step - loss: 0.3433 - top_1_accuracy: 0.9040 - top_5_accuracy: 0.9770
+Saving resnet50 rev-6-e weights to disk
+  save operation complete
+Training elapsed time: 01:00:35.906
+
