@@ -1,0 +1,54 @@
+Using TensorFlow backend.
+
+Loading model weights from disk
+  setting learning phase to 1 prior to creating model and loading weights
+2018-12-06 09:54:27.589780: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1105] Found device 0 with properties: 
+name: GeForce GTX 1060 6GB major: 6 minor: 1 memoryClockRate(GHz): 1.835
+pciBusID: 0000:01:00.0
+totalMemory: 5.93GiB freeMemory: 5.15GiB
+2018-12-06 09:54:27.590038: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1195] Creating TensorFlow device (/device:GPU:0) -> (device: 0, name: GeForce GTX 1060 6GB, pci bus id: 0000:01:00.0, compute capability: 6.1)
+  model ready for use
+
+Generating dataset
+  Populating class dict
+  Populating partition and labels dicts
+    partition name: train, list length: 3334
+    partition name: val, list length: 3333
+    partition name: test, list length: 3333
+  Results:
+    partition_dict len: 3
+    labels_dict len: 10000
+    class_dict len: 100
+
+Model Details
+  Name: vgg16 rev-6-a
+  Total layers: 25
+  Non-trainable layers: 14
+  Top Architecture:
+    flatten_1	(None, 25088)
+    dense_1	(None, 4096)
+    dropout_1	(None, 4096)
+    dense_2	(None, 4096)
+    dropout_2	(None, 4096)
+    dense_3	(None, 100)
+  Number classes: 100
+  Optimizer : sgd
+    Learning rate: 0.001
+  Image shape: (224, 224, 3)
+  Training partitions: ['train', 'val']
+  Training images: 6667
+  Test partitions: ['test']
+  Test images: 3333
+  Augmentation: True
+  Batch size: 8
+  Epochs: 32
+  Run mode: eval
+
+
+Evaluate vgg16 rev-6-a model
+416/416 [==============================] - 40s 96ms/step
+  Test loss: 1.8591084754312288
+  Top-1 accuracy: 0.7241586538461539
+  Top-5 accuracy: 0.9047475961538461
+Training elapsed time: 00:00:43.268
+

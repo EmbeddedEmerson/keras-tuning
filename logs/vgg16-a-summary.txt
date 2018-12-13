@@ -1,0 +1,106 @@
+Using TensorFlow backend.
+
+Loading model weights from disk
+  setting learning phase to 1 prior to creating model and loading weights
+2018-12-06 09:56:45.974529: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1105] Found device 0 with properties: 
+name: GeForce GTX 1060 6GB major: 6 minor: 1 memoryClockRate(GHz): 1.835
+pciBusID: 0000:01:00.0
+totalMemory: 5.93GiB freeMemory: 5.15GiB
+2018-12-06 09:56:45.974579: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1195] Creating TensorFlow device (/device:GPU:0) -> (device: 0, name: GeForce GTX 1060 6GB, pci bus id: 0000:01:00.0, compute capability: 6.1)
+  model ready for use
+
+Generating dataset
+  Populating class dict
+  Populating partition and labels dicts
+    partition name: train, list length: 3334
+    partition name: val, list length: 3333
+    partition name: test, list length: 3333
+  Results:
+    partition_dict len: 3
+    labels_dict len: 10000
+    class_dict len: 100
+
+Model Details
+  Name: vgg16 rev-6-a
+  Total layers: 25
+  Non-trainable layers: 14
+  Top Architecture:
+    flatten_1	(None, 25088)
+    dense_1	(None, 4096)
+    dropout_1	(None, 4096)
+    dense_2	(None, 4096)
+    dropout_2	(None, 4096)
+    dense_3	(None, 100)
+  Number classes: 100
+  Optimizer : sgd
+    Learning rate: 0.001
+  Image shape: (224, 224, 3)
+  Training partitions: ['train', 'val']
+  Training images: 6667
+  Test partitions: ['test']
+  Test images: 3333
+  Augmentation: True
+  Batch size: 8
+  Epochs: 32
+  Run mode: summary
+
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+input_1 (InputLayer)         (None, 224, 224, 3)       0         
+_________________________________________________________________
+block1_conv1 (Conv2D)        (None, 224, 224, 64)      1792      
+_________________________________________________________________
+block1_conv2 (Conv2D)        (None, 224, 224, 64)      36928     
+_________________________________________________________________
+block1_pool (MaxPooling2D)   (None, 112, 112, 64)      0         
+_________________________________________________________________
+block2_conv1 (Conv2D)        (None, 112, 112, 128)     73856     
+_________________________________________________________________
+block2_conv2 (Conv2D)        (None, 112, 112, 128)     147584    
+_________________________________________________________________
+block2_pool (MaxPooling2D)   (None, 56, 56, 128)       0         
+_________________________________________________________________
+block3_conv1 (Conv2D)        (None, 56, 56, 256)       295168    
+_________________________________________________________________
+block3_conv2 (Conv2D)        (None, 56, 56, 256)       590080    
+_________________________________________________________________
+block3_conv3 (Conv2D)        (None, 56, 56, 256)       590080    
+_________________________________________________________________
+block3_pool (MaxPooling2D)   (None, 28, 28, 256)       0         
+_________________________________________________________________
+block4_conv1 (Conv2D)        (None, 28, 28, 512)       1180160   
+_________________________________________________________________
+block4_conv2 (Conv2D)        (None, 28, 28, 512)       2359808   
+_________________________________________________________________
+block4_conv3 (Conv2D)        (None, 28, 28, 512)       2359808   
+_________________________________________________________________
+block4_pool (MaxPooling2D)   (None, 14, 14, 512)       0         
+_________________________________________________________________
+block5_conv1 (Conv2D)        (None, 14, 14, 512)       2359808   
+_________________________________________________________________
+block5_conv2 (Conv2D)        (None, 14, 14, 512)       2359808   
+_________________________________________________________________
+block5_conv3 (Conv2D)        (None, 14, 14, 512)       2359808   
+_________________________________________________________________
+block5_pool (MaxPooling2D)   (None, 7, 7, 512)         0         
+_________________________________________________________________
+flatten_1 (Flatten)          (None, 25088)             0         
+_________________________________________________________________
+dense_1 (Dense)              (None, 4096)              102764544 
+_________________________________________________________________
+dropout_1 (Dropout)          (None, 4096)              0         
+_________________________________________________________________
+dense_2 (Dense)              (None, 4096)              16781312  
+_________________________________________________________________
+dropout_2 (Dropout)          (None, 4096)              0         
+_________________________________________________________________
+dense_3 (Dense)              (None, 100)               409700    
+=================================================================
+Total params: 134,670,244
+Trainable params: 127,034,980
+Non-trainable params: 7,635,264
+_________________________________________________________________
+None
+Training elapsed time: 00:00:02.953
+

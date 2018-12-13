@@ -1,0 +1,114 @@
+Using TensorFlow backend.
+
+Loading model weights from disk
+  setting learning phase to 1 prior to creating model and loading weights
+2018-12-06 08:35:07.592336: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1105] Found device 0 with properties: 
+name: GeForce GTX 1060 6GB major: 6 minor: 1 memoryClockRate(GHz): 1.835
+pciBusID: 0000:01:00.0
+totalMemory: 5.93GiB freeMemory: 5.14GiB
+2018-12-06 08:35:07.592387: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1195] Creating TensorFlow device (/device:GPU:0) -> (device: 0, name: GeForce GTX 1060 6GB, pci bus id: 0000:01:00.0, compute capability: 6.1)
+  model ready for use
+
+Generating dataset
+  Populating class dict
+  Populating partition and labels dicts
+    partition name: train, list length: 3334
+    partition name: val, list length: 3333
+    partition name: test, list length: 3333
+  Results:
+    partition_dict len: 3
+    labels_dict len: 10000
+    class_dict len: 100
+
+Model Details
+  Name: vgg16 rev-6-a
+  Total layers: 25
+  Non-trainable layers: 14
+  Top Architecture:
+    flatten_1	(None, 25088)
+    dense_1	(None, 4096)
+    dropout_1	(None, 4096)
+    dense_2	(None, 4096)
+    dropout_2	(None, 4096)
+    dense_3	(None, 100)
+  Number classes: 100
+  Optimizer : sgd
+    Learning rate: 0.001
+  Image shape: (224, 224, 3)
+  Training partitions: ['train', 'val']
+  Training images: 6667
+  Test partitions: ['test']
+  Test images: 3333
+  Augmentation: True
+  Batch size: 8
+  Epochs: 32
+  Run mode: train
+
+Epoch 1/32
+833/833 [==============================] - 148s 178ms/step - loss: 0.2654 - top_1_accuracy: 0.9290 - top_5_accuracy: 0.9755
+Epoch 2/32
+833/833 [==============================] - 146s 175ms/step - loss: 0.2359 - top_1_accuracy: 0.9370 - top_5_accuracy: 0.9814
+Epoch 3/32
+833/833 [==============================] - 145s 175ms/step - loss: 0.2175 - top_1_accuracy: 0.9386 - top_5_accuracy: 0.9827
+Epoch 4/32
+833/833 [==============================] - 147s 177ms/step - loss: 0.2404 - top_1_accuracy: 0.9355 - top_5_accuracy: 0.9814
+Epoch 5/32
+833/833 [==============================] - 147s 176ms/step - loss: 0.2600 - top_1_accuracy: 0.9311 - top_5_accuracy: 0.9758
+Epoch 6/32
+833/833 [==============================] - 146s 175ms/step - loss: 0.2278 - top_1_accuracy: 0.9397 - top_5_accuracy: 0.9806
+Epoch 7/32
+833/833 [==============================] - 144s 172ms/step - loss: 0.2546 - top_1_accuracy: 0.9337 - top_5_accuracy: 0.9746
+Epoch 8/32
+833/833 [==============================] - 144s 173ms/step - loss: 0.2334 - top_1_accuracy: 0.9370 - top_5_accuracy: 0.9812
+Epoch 9/32
+833/833 [==============================] - 144s 172ms/step - loss: 0.2105 - top_1_accuracy: 0.9413 - top_5_accuracy: 0.9824
+Epoch 10/32
+833/833 [==============================] - 143s 172ms/step - loss: 0.2154 - top_1_accuracy: 0.9446 - top_5_accuracy: 0.9829
+Epoch 11/32
+833/833 [==============================] - 144s 173ms/step - loss: 0.2620 - top_1_accuracy: 0.9299 - top_5_accuracy: 0.9797
+Epoch 12/32
+833/833 [==============================] - 144s 173ms/step - loss: 0.2330 - top_1_accuracy: 0.9385 - top_5_accuracy: 0.9806
+Epoch 13/32
+833/833 [==============================] - 143s 172ms/step - loss: 0.2209 - top_1_accuracy: 0.9404 - top_5_accuracy: 0.9851
+Epoch 14/32
+833/833 [==============================] - 143s 172ms/step - loss: 0.2228 - top_1_accuracy: 0.9412 - top_5_accuracy: 0.9821
+Epoch 15/32
+833/833 [==============================] - 143s 172ms/step - loss: 0.2559 - top_1_accuracy: 0.9311 - top_5_accuracy: 0.9797
+Epoch 16/32
+833/833 [==============================] - 144s 173ms/step - loss: 0.2006 - top_1_accuracy: 0.9478 - top_5_accuracy: 0.9829
+Epoch 17/32
+833/833 [==============================] - 144s 173ms/step - loss: 0.2175 - top_1_accuracy: 0.9412 - top_5_accuracy: 0.9838
+Epoch 18/32
+833/833 [==============================] - 144s 172ms/step - loss: 0.2326 - top_1_accuracy: 0.9407 - top_5_accuracy: 0.9799
+Epoch 19/32
+833/833 [==============================] - 145s 174ms/step - loss: 0.2383 - top_1_accuracy: 0.9347 - top_5_accuracy: 0.9815
+Epoch 20/32
+833/833 [==============================] - 148s 177ms/step - loss: 0.2204 - top_1_accuracy: 0.9383 - top_5_accuracy: 0.9823
+Epoch 21/32
+833/833 [==============================] - 144s 173ms/step - loss: 0.2007 - top_1_accuracy: 0.9461 - top_5_accuracy: 0.9854
+Epoch 22/32
+833/833 [==============================] - 144s 173ms/step - loss: 0.1886 - top_1_accuracy: 0.9494 - top_5_accuracy: 0.9847
+Epoch 23/32
+833/833 [==============================] - 144s 173ms/step - loss: 0.2241 - top_1_accuracy: 0.9401 - top_5_accuracy: 0.9836
+Epoch 24/32
+833/833 [==============================] - 144s 173ms/step - loss: 0.2030 - top_1_accuracy: 0.9457 - top_5_accuracy: 0.9820
+Epoch 25/32
+833/833 [==============================] - 143s 172ms/step - loss: 0.2120 - top_1_accuracy: 0.9424 - top_5_accuracy: 0.9833
+Epoch 26/32
+833/833 [==============================] - 145s 174ms/step - loss: 0.2051 - top_1_accuracy: 0.9466 - top_5_accuracy: 0.9835
+Epoch 27/32
+833/833 [==============================] - 145s 174ms/step - loss: 0.2129 - top_1_accuracy: 0.9448 - top_5_accuracy: 0.9814
+Epoch 28/32
+833/833 [==============================] - 143s 172ms/step - loss: 0.1904 - top_1_accuracy: 0.9508 - top_5_accuracy: 0.9854
+Epoch 29/32
+833/833 [==============================] - 144s 173ms/step - loss: 0.1562 - top_1_accuracy: 0.9584 - top_5_accuracy: 0.9904
+Epoch 30/32
+833/833 [==============================] - 143s 172ms/step - loss: 0.1632 - top_1_accuracy: 0.9560 - top_5_accuracy: 0.9896
+Epoch 31/32
+833/833 [==============================] - 144s 173ms/step - loss: 0.2053 - top_1_accuracy: 0.9482 - top_5_accuracy: 0.9820
+Epoch 32/32
+833/833 [==============================] - 144s 173ms/step - loss: 0.1528 - top_1_accuracy: 0.9619 - top_5_accuracy: 0.9899
+Saving vgg16 rev-6-a weights to disk
+  save operation complete
+Training elapsed time: 01:17:09.888
+
