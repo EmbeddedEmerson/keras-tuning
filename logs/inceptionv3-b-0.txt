@@ -1,0 +1,81 @@
+Using TensorFlow backend.
+
+Creating model from scratch
+2018-11-30 11:06:37.356524: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1105] Found device 0 with properties: 
+name: GeForce GTX 1060 6GB major: 6 minor: 1 memoryClockRate(GHz): 1.835
+pciBusID: 0000:01:00.0
+totalMemory: 5.93GiB freeMemory: 5.25GiB
+2018-11-30 11:06:37.356574: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1195] Creating TensorFlow device (/device:GPU:0) -> (device: 0, name: GeForce GTX 1060 6GB, pci bus id: 0000:01:00.0, compute capability: 6.1)
+  model ready for use
+
+Generating dataset
+  Populating class dict
+  Populating partition and labels dicts
+    partition name: train, list length: 3334
+    partition name: val, list length: 3333
+    partition name: test, list length: 3333
+  Results:
+    partition_dict len: 3
+    labels_dict len: 10000
+    class_dict len: 100
+
+Model Details
+  Name: inceptionv3 rev-6-b
+  Total layers: 317
+  Non-trainable layers: 165
+  Top Architecture:
+    flatten_1	(None, 131072)
+    dense_1	(None, 512)
+    dropout_1	(None, 512)
+    dense_2	(None, 256)
+    dropout_2	(None, 256)
+    dense_3	(None, 100)
+  Number classes: 100
+  Optimizer : sgd
+    Learning rate: 0.001
+  Image shape: (299, 299, 3)
+  Training partitions: ['train', 'val']
+  Training images: 6667
+  Test partitions: ['test']
+  Test images: 3333
+  Augmentation: True
+  Batch size: 16
+  Epochs: 16
+  Run mode: train
+
+Epoch 1/16
+  1/416 [..............................] - ETA: 1:25:59 - loss: 5.7196 - top_1_accuracy: 0.0000e+00 - top_5_accuracy: 0.0000e+  2/416 [..............................] - ETA: 43:55 - loss: 5.5932 - top_1_accuracy: 0.0000e+00 - top_5_accuracy: 0.0000e+00416/416 [==============================] - 199s 479ms/step - loss: 4.6757 - top_1_accuracy: 0.0066 - top_5_accuracy: 0.0425   
+Epoch 2/16
+416/416 [==============================] - 190s 457ms/step - loss: 4.6057 - top_1_accuracy: 0.0092 - top_5_accuracy: 0.0427
+Epoch 3/16
+416/416 [==============================] - 190s 457ms/step - loss: 4.6057 - top_1_accuracy: 0.0086 - top_5_accuracy: 0.0440
+Epoch 4/16
+416/416 [==============================] - 189s 453ms/step - loss: 4.6052 - top_1_accuracy: 0.0066 - top_5_accuracy: 0.0431
+Epoch 5/16
+416/416 [==============================] - 190s 456ms/step - loss: 4.6021 - top_1_accuracy: 0.0092 - top_5_accuracy: 0.0425
+Epoch 6/16
+416/416 [==============================] - 192s 460ms/step - loss: 4.5826 - top_1_accuracy: 0.0114 - top_5_accuracy: 0.0598   
+Epoch 7/16
+416/416 [==============================] - 191s 458ms/step - loss: 4.5686 - top_1_accuracy: 0.0117 - top_5_accuracy: 0.0627
+Epoch 8/16
+416/416 [==============================] - 189s 454ms/step - loss: 4.5458 - top_1_accuracy: 0.0147 - top_5_accuracy: 0.0711
+Epoch 9/16
+416/416 [==============================] - 192s 461ms/step - loss: 4.5170 - top_1_accuracy: 0.0177 - top_5_accuracy: 0.0820   
+Epoch 10/16
+416/416 [==============================] - 191s 458ms/step - loss: 4.4714 - top_1_accuracy: 0.0251 - top_5_accuracy: 0.1001   
+Epoch 11/16
+416/416 [==============================] - 190s 456ms/step - loss: 4.4049 - top_1_accuracy: 0.0269 - top_5_accuracy: 0.1232   
+Epoch 12/16
+416/416 [==============================] - 192s 461ms/step - loss: 4.3476 - top_1_accuracy: 0.0328 - top_5_accuracy: 0.1378
+Epoch 13/16
+416/416 [==============================] - 219s 528ms/step - loss: 4.2995 - top_1_accuracy: 0.0407 - top_5_accuracy: 0.1409
+Epoch 14/16
+416/416 [==============================] - 236s 568ms/step - loss: 4.2401 - top_1_accuracy: 0.0415 - top_5_accuracy: 0.1606
+Epoch 15/16
+416/416 [==============================] - 209s 502ms/step - loss: 4.1852 - top_1_accuracy: 0.0523 - top_5_accuracy: 0.1845
+Epoch 16/16
+416/416 [==============================] - 224s 539ms/step - loss: 4.1043 - top_1_accuracy: 0.0642 - top_5_accuracy: 0.2135
+Saving inceptionv3 rev-6-b weights to disk
+  save operation complete
+Training elapsed time: 00:53:45.392
+

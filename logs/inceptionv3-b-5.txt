@@ -1,0 +1,180 @@
+Continuation of inceptionv3-b-4.txt.  Train model for 64 more epochs.
+
+Using TensorFlow backend.
+
+Loading model weights from disk
+  setting learning phase to 1 prior to creating model and loading weights
+2018-12-01 11:24:56.497390: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1105] Found device 0 with properties: 
+name: GeForce GTX 1060 6GB major: 6 minor: 1 memoryClockRate(GHz): 1.835
+pciBusID: 0000:01:00.0
+totalMemory: 5.93GiB freeMemory: 5.25GiB
+2018-12-01 11:24:56.497437: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1195] Creating TensorFlow device (/device:GPU:0) -> (device: 0, name: GeForce GTX 1060 6GB, pci bus id: 0000:01:00.0, compute capability: 6.1)
+  model ready for use
+
+Generating dataset
+  Populating class dict
+  Populating partition and labels dicts
+    partition name: train, list length: 3334
+    partition name: val, list length: 3333
+    partition name: test, list length: 3333
+  Results:
+    partition_dict len: 3
+    labels_dict len: 10000
+    class_dict len: 100
+
+Model Details
+  Name: inceptionv3 rev-6-b
+  Total layers: 317
+  Non-trainable layers: 165
+  Top Architecture:
+    flatten_1	(None, 131072)
+    dense_1	(None, 512)
+    dropout_1	(None, 512)
+    dense_2	(None, 256)
+    dropout_2	(None, 256)
+    dense_3	(None, 100)
+  Number classes: 100
+  Optimizer : sgd
+    Learning rate: 0.001
+  Image shape: (299, 299, 3)
+  Training partitions: ['train', 'val']
+  Training images: 6667
+  Test partitions: ['test']
+  Test images: 3333
+  Augmentation: True
+  Batch size: 16
+  Epochs: 64
+  Run mode: train
+
+Epoch 1/64
+416/416 [==============================] - 195s 469ms/step - loss: 0.5562 - top_1_accuracy: 0.8251 - top_5_accuracy: 0.9288
+Epoch 2/64
+416/416 [==============================] - 190s 458ms/step - loss: 0.5586 - top_1_accuracy: 0.8289 - top_5_accuracy: 0.9282
+Epoch 3/64
+416/416 [==============================] - 190s 457ms/step - loss: 0.6261 - top_1_accuracy: 0.8229 - top_5_accuracy: 0.9208
+Epoch 4/64
+416/416 [==============================] - 190s 457ms/step - loss: 0.5440 - top_1_accuracy: 0.8340 - top_5_accuracy: 0.9243
+Epoch 5/64
+416/416 [==============================] - 192s 461ms/step - loss: 0.5443 - top_1_accuracy: 0.8278 - top_5_accuracy: 0.9291
+Epoch 6/64
+416/416 [==============================] - 191s 458ms/step - loss: 0.5473 - top_1_accuracy: 0.8289 - top_5_accuracy: 0.9289
+Epoch 7/64
+416/416 [==============================] - 192s 462ms/step - loss: 0.6003 - top_1_accuracy: 0.8176 - top_5_accuracy: 0.9258
+Epoch 8/64
+416/416 [==============================] - 190s 457ms/step - loss: 0.5239 - top_1_accuracy: 0.8370 - top_5_accuracy: 0.9361
+Epoch 9/64
+416/416 [==============================] - 188s 451ms/step - loss: 0.5449 - top_1_accuracy: 0.8325 - top_5_accuracy: 0.9282
+Epoch 10/64
+416/416 [==============================] - 188s 453ms/step - loss: 0.5403 - top_1_accuracy: 0.8355 - top_5_accuracy: 0.9333
+Epoch 11/64
+416/416 [==============================] - 189s 455ms/step - loss: 0.5381 - top_1_accuracy: 0.8335 - top_5_accuracy: 0.9354
+Epoch 12/64
+416/416 [==============================] - 191s 459ms/step - loss: 0.4934 - top_1_accuracy: 0.8403 - top_5_accuracy: 0.9423
+Epoch 13/64
+416/416 [==============================] - 190s 456ms/step - loss: 0.4998 - top_1_accuracy: 0.8419 - top_5_accuracy: 0.9426
+Epoch 14/64
+416/416 [==============================] - 190s 456ms/step - loss: 0.5169 - top_1_accuracy: 0.8462 - top_5_accuracy: 0.9455
+Epoch 15/64
+416/416 [==============================] - 190s 456ms/step - loss: 0.4976 - top_1_accuracy: 0.8484 - top_5_accuracy: 0.9450
+Epoch 16/64
+416/416 [==============================] - 189s 455ms/step - loss: 0.4912 - top_1_accuracy: 0.8510 - top_5_accuracy: 0.9471
+Epoch 17/64
+416/416 [==============================] - 190s 456ms/step - loss: 0.4938 - top_1_accuracy: 0.8454 - top_5_accuracy: 0.9476
+Epoch 18/64
+416/416 [==============================] - 190s 456ms/step - loss: 0.4895 - top_1_accuracy: 0.8537 - top_5_accuracy: 0.9501
+Epoch 19/64
+416/416 [==============================] - 189s 454ms/step - loss: 0.4778 - top_1_accuracy: 0.8541 - top_5_accuracy: 0.9525
+Epoch 20/64
+416/416 [==============================] - 192s 461ms/step - loss: 0.4597 - top_1_accuracy: 0.8550 - top_5_accuracy: 0.9539
+Epoch 21/64
+416/416 [==============================] - 190s 457ms/step - loss: 0.4628 - top_1_accuracy: 0.8559 - top_5_accuracy: 0.9572
+Epoch 22/64
+416/416 [==============================] - 191s 458ms/step - loss: 0.4393 - top_1_accuracy: 0.8634 - top_5_accuracy: 0.9551
+Epoch 23/64
+416/416 [==============================] - 192s 460ms/step - loss: 0.4071 - top_1_accuracy: 0.8756 - top_5_accuracy: 0.9644
+Epoch 24/64
+416/416 [==============================] - 190s 458ms/step - loss: 0.4359 - top_1_accuracy: 0.8643 - top_5_accuracy: 0.9635
+Epoch 25/64
+416/416 [==============================] - 193s 463ms/step - loss: 0.4415 - top_1_accuracy: 0.8646 - top_5_accuracy: 0.9606
+Epoch 26/64
+416/416 [==============================] - 187s 450ms/step - loss: 0.4126 - top_1_accuracy: 0.8669 - top_5_accuracy: 0.9689
+Epoch 27/64
+416/416 [==============================] - 189s 454ms/step - loss: 0.4152 - top_1_accuracy: 0.8688 - top_5_accuracy: 0.9638
+Epoch 28/64
+416/416 [==============================] - 192s 461ms/step - loss: 0.4419 - top_1_accuracy: 0.8666 - top_5_accuracy: 0.9645
+Epoch 29/64
+416/416 [==============================] - 186s 447ms/step - loss: 0.4170 - top_1_accuracy: 0.8654 - top_5_accuracy: 0.9653
+Epoch 30/64
+416/416 [==============================] - 189s 455ms/step - loss: 0.4554 - top_1_accuracy: 0.8619 - top_5_accuracy: 0.9602
+Epoch 31/64
+416/416 [==============================] - 191s 459ms/step - loss: 0.3799 - top_1_accuracy: 0.8777 - top_5_accuracy: 0.9724
+Epoch 32/64
+416/416 [==============================] - 190s 456ms/step - loss: 0.3904 - top_1_accuracy: 0.8736 - top_5_accuracy: 0.9668
+Epoch 33/64
+416/416 [==============================] - 189s 456ms/step - loss: 0.3535 - top_1_accuracy: 0.8851 - top_5_accuracy: 0.9740
+Epoch 34/64
+416/416 [==============================] - 191s 458ms/step - loss: 0.3708 - top_1_accuracy: 0.8800 - top_5_accuracy: 0.9704
+Epoch 35/64
+416/416 [==============================] - 189s 455ms/step - loss: 0.3803 - top_1_accuracy: 0.8812 - top_5_accuracy: 0.9746
+Epoch 36/64
+416/416 [==============================] - 191s 459ms/step - loss: 0.3898 - top_1_accuracy: 0.8736 - top_5_accuracy: 0.9740
+Epoch 37/64
+416/416 [==============================] - 190s 457ms/step - loss: 0.3839 - top_1_accuracy: 0.8849 - top_5_accuracy: 0.9731
+Epoch 38/64
+416/416 [==============================] - 190s 457ms/step - loss: 0.3558 - top_1_accuracy: 0.8902 - top_5_accuracy: 0.9716
+Epoch 39/64
+416/416 [==============================] - 193s 463ms/step - loss: 0.3567 - top_1_accuracy: 0.8855 - top_5_accuracy: 0.9775
+Epoch 40/64
+416/416 [==============================] - 191s 458ms/step - loss: 0.3669 - top_1_accuracy: 0.8872 - top_5_accuracy: 0.9757
+Epoch 41/64
+416/416 [==============================] - 189s 455ms/step - loss: 0.3456 - top_1_accuracy: 0.8914 - top_5_accuracy: 0.9748
+Epoch 42/64
+416/416 [==============================] - 190s 456ms/step - loss: 0.3347 - top_1_accuracy: 0.8969 - top_5_accuracy: 0.9794
+Epoch 43/64
+416/416 [==============================] - 190s 458ms/step - loss: 0.3493 - top_1_accuracy: 0.8897 - top_5_accuracy: 0.9764
+Epoch 44/64
+416/416 [==============================] - 192s 463ms/step - loss: 0.3535 - top_1_accuracy: 0.8863 - top_5_accuracy: 0.9775
+Epoch 45/64
+416/416 [==============================] - 190s 456ms/step - loss: 0.3296 - top_1_accuracy: 0.8971 - top_5_accuracy: 0.9778
+Epoch 46/64
+416/416 [==============================] - 190s 456ms/step - loss: 0.3343 - top_1_accuracy: 0.8921 - top_5_accuracy: 0.9821
+Epoch 47/64
+416/416 [==============================] - 190s 457ms/step - loss: 0.3233 - top_1_accuracy: 0.8969 - top_5_accuracy: 0.9811
+Epoch 48/64
+416/416 [==============================] - 188s 453ms/step - loss: 0.3089 - top_1_accuracy: 0.8981 - top_5_accuracy: 0.9848
+Epoch 49/64
+416/416 [==============================] - 190s 456ms/step - loss: 0.3018 - top_1_accuracy: 0.9011 - top_5_accuracy: 0.9854
+Epoch 50/64
+416/416 [==============================] - 190s 456ms/step - loss: 0.3128 - top_1_accuracy: 0.8999 - top_5_accuracy: 0.9821
+Epoch 51/64
+416/416 [==============================] - 190s 457ms/step - loss: 0.3259 - top_1_accuracy: 0.8998 - top_5_accuracy: 0.9820
+Epoch 52/64
+416/416 [==============================] - 192s 461ms/step - loss: 0.2911 - top_1_accuracy: 0.9082 - top_5_accuracy: 0.9866
+Epoch 53/64
+416/416 [==============================] - 190s 456ms/step - loss: 0.3115 - top_1_accuracy: 0.9040 - top_5_accuracy: 0.9848
+Epoch 54/64
+416/416 [==============================] - 189s 454ms/step - loss: 0.2843 - top_1_accuracy: 0.9076 - top_5_accuracy: 0.9853
+Epoch 55/64
+416/416 [==============================] - 192s 462ms/step - loss: 0.2767 - top_1_accuracy: 0.9111 - top_5_accuracy: 0.9893
+Epoch 56/64
+416/416 [==============================] - 193s 463ms/step - loss: 0.2882 - top_1_accuracy: 0.9102 - top_5_accuracy: 0.9863
+Epoch 57/64
+416/416 [==============================] - 189s 453ms/step - loss: 0.2971 - top_1_accuracy: 0.9084 - top_5_accuracy: 0.9863
+Epoch 58/64
+416/416 [==============================] - 191s 459ms/step - loss: 0.3030 - top_1_accuracy: 0.9047 - top_5_accuracy: 0.9863
+Epoch 59/64
+416/416 [==============================] - 190s 456ms/step - loss: 0.2828 - top_1_accuracy: 0.9126 - top_5_accuracy: 0.9820
+Epoch 60/64
+416/416 [==============================] - 190s 456ms/step - loss: 0.2761 - top_1_accuracy: 0.9136 - top_5_accuracy: 0.9881
+Epoch 61/64
+416/416 [==============================] - 190s 456ms/step - loss: 0.2681 - top_1_accuracy: 0.9130 - top_5_accuracy: 0.9890
+Epoch 62/64
+416/416 [==============================] - 188s 452ms/step - loss: 0.2607 - top_1_accuracy: 0.9175 - top_5_accuracy: 0.9899
+Epoch 63/64
+416/416 [==============================] - 190s 456ms/step - loss: 0.2519 - top_1_accuracy: 0.9211 - top_5_accuracy: 0.9886
+Epoch 64/64
+416/416 [==============================] - 190s 457ms/step - loss: 0.2672 - top_1_accuracy: 0.9150 - top_5_accuracy: 0.9887
+Saving inceptionv3 rev-6-b weights to disk
+  save operation complete
+Training elapsed time: 03:23:32.548
+
