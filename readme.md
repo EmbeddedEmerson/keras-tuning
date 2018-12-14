@@ -22,10 +22,11 @@ Broadly speaking, the dataset is divided into three partitions:
 - test, 3333 images
 
 For the purposes of this project, I combined the train and validation partitions and used them for training the models.  I used the test partition as is for evaluating the performance of the models.  To summarize:
-- training set, 6667 images
-- test set, 3333 images
 
-At no point in time were the models ever trained using the test data.  Again, the test data was only used for evaluating performance.
+* training set, 6667 images
+* test set, 3333 images
+
+At no point in time were the models ever trained using the test data; the test data was only used for evaluating performance.
 
 
 ## Development Environment ##
@@ -70,7 +71,7 @@ Download the 'Data, annotations and evaluation' archive from the above fgvc-airc
 
 ### Variants ###
 
-Variants.txt is a list of the 100 aircraft variants found in the dataset.  Snippet:
+Variants.txt is a list of the 100 aircraft variants found in the dataset. Below is a snippet which enumerates the Boeing 737 variants:
 
     737-200
     737-300
@@ -147,24 +148,26 @@ After further research, I hit upon the following link:
     https://stanford.edu/~shervine/blog/keras-how-to-generate-data-on-the-fly
 
 The article describes a DataGenerator which removes the directory structure limitation; its structure is purposefully generic.  One tailors this code via: 
-    user supplied partition and labels dictionaries
-    specifying the details for loading an individual image
+
+* User supplied train, val and test lists
+* Specifying the details for loading an individual image
+* User supplied labels dictionary
 
 Other than some trivial modifications, this is not my code.  See my_classes.py for details.
 
-### Partition and Labels Dictionaries ###
+### Tailoring the DataGenerator ###
 
-Refer to the above stanford link.  The desired partition dictionary contains three members:
+Refer to the above stanford link.  The lists needed for training, etc. are first organized into the partition dictionary:
 
-   partition_dict['train'] - list of IDs composing the training set
-   partition_dict['val'] - list of IDs composing the validation set
-   partition_dict['test'] - list of IDs composing the test set
+* partition_dict['train'] - list of IDs composing the training set
+* partition_dict['val'] - list of IDs composing the validation set
+* partition_dict['test'] - list of IDs composing the test set
 
 In the context of the fgvc dataset, each ID is the name of an image file with the .jpg extension omitted. So, the train partion will contain a list of all the .jpg files used for training.  Likewise for the val and test partitions.
 
 Refer to get_image() in my_classes.py.  You can see how given an image id ('1042824'), it is easy to load the corresponding .jpg file from the boxed/ directory, convert the resulting image to a Python array, and then use its contents for further processing.
 
-A labels dictionary is the second component needed for tailoring the DataGenerator. The keys for the dictionary are image ids ('1042824'). The value for a given key is its class index.  Class index is a number range 0 thru 99 inclusive, which identifies the aircraft variant found in the associated image file.
+A labels dictionary is the third component needed for tailoring the DataGenerator. The keys for the dictionary are image ids ('1042824'). The value for a given key is its class index.  Class index is a number range 0 thru 99 inclusive, which identifies the aircraft variant found in the associated image file.
 
 Code in my_utils.py populates these structures at program start-up.  Code in exec_model.py combines the train and val lists into a single training list containing 6667 members.
 
@@ -200,12 +203,12 @@ Dealing with BatchNorm was the most difficult part of this project.  As mentione
 
 Specifically, when in training mode, BatchNorm uses the statistics of the new dataset (fgvc-aircraft-2013b).  This is what we want.  However, when evaluating the performance of our model, BatchNorm uses the statistics of the original dataset (ImageNet).  This is not what we want.
 
-Below is an example:
+Assume that we've partially trained a model then evaluate its performance. Below is evidence of the BatchNorm issue:
 
-           train     eval
-           -----     ----
-top-1      0.639     0.010
-top-5      0.831     0.051
+|    |           |  |   Train | |   Eval |
+|    |           |  |   ----- | |   ---- |
+|    | top-1     |  |   0.639 | |  0.010 |
+|    | top-5     |  |   0.831 | |  0.051 |
 
 The train column refers to the top one and five accuracies of the final epoch when running model.fit() using the training set.  The eval column refers to the same accuracies when running model.evaluate() using the test set.  This is puzzling because the train column suggests the model is converging; the eval column strongly suggests otherwise.
 
@@ -217,14 +220,21 @@ In this post, V. Vryniotis describes the problem, how to reproduce it, an implie
 
 Full disclosure.  I'm still learning Keras and was hesitant to rely on a patch which wasn't accepted.  I chose the workaround instead.  First, a few Keras details.
 
-Keras uses a boolean, learning_phase, to control internal operations.  Normally, the user does not explicitly set learning_phase.  Keras handles this automatically.
-
-When executing model.fit(), Keras is in training mode.
+Internally, Keras runs in either training or test mode.  Normally, the user does not manipulate this attribute; Keras handles this automatically.
 
 When executing:
+
+
+  * model.fit()
+ 
+Keras is in training mode.
+
+When executing:
+
 * model.evaluate()
 * model.predict()
 * validation step of model.fit()
+
 Keras is in test mode.
 
 Without a workaround in place, when we test model performance using model.evaluate(), Keras internally switches to test mode, uses the ImageNet statistics in the BatchNorm layers and we have problems.
@@ -259,8 +269,8 @@ The overall structure of the tuning code is simple:
 As you would expect, the child modules implement the same operations for their respective
 Keras applications:
 
-    load pre-trained Keras application (top=False), install top layers, return a Keras Model
-    set application specific parameters
+* load pre-trained Keras application (top=False), install top layers, return a Keras Model
+* set application specific parameters
 
 The tuning code uses a dictionary, model_params, to organize all parameters into a single structure.  To help with hyperparameter tuning, each program run displays the contents of this dictionary.  For example:
 
@@ -334,38 +344,117 @@ Sets the learning rate for the chosen optimizer.
 
 Each model supports two different top architectures.  Resnet50 examples:
 
-  Top Architecture:
-    flatten_1	(None, 100352)
-    dense_1	(None, 512)
-    dropout_1	(None, 512)
-    dense_2	(None, 256)
-    dropout_2	(None, 256)
-    dense_3	(None, 100)
+    Top D:
+      flatten_1	(None, 100352)
+      dense_1	(None, 512)
+      dropout_1	(None, 512)
+      dense_2	(None, 256)
+      dropout_2	(None, 256)
+      dense_3	(None, 100)
 
-  Top Architecture:
-    global_average_pooling2d_1	(None, 2048)
-    dense_1	(None, 1024)
-    dropout_1	(None, 1024)
-    dense_2	(None, 100)
+    Top E:
+      global_average_pooling2d_1	(None, 2048)
+      dense_1	(None, 1024)
+      dropout_1	(None, 1024)
+      dense_2	(None, 100)
 
-The composition of the top layers of a model strongly affects training performance.  See the Results section.
+A model's top layers composition strongly impacts performance.  See the Results section.
 
-### Results ###
+## Results ##
+
+My goal all along was to achieve accuracy comparable to that published in the Keras documentation for models fine tuned to a different dataset.  Before discussing results, below is the raw data for the various models.
+
+### Vgg16 ###
+
+The Vgg16 models share the following hyperparameters:
+
+* optimizer - stochastic gradient descent
+* learing rate - 0.001
+* locked layers - 14
+
+Below are the top architectures for the A and B models.
+
+    Top-A:
+      flatten_1	(None, 25088)
+      dense_1	(None, 4096)
+      dropout_1	(None, 4096)
+      dense_2	(None, 4096)
+      dropout_2	(None, 4096)
+      dense_3	(None, 100)
+
+    Top-B:
+      global_average_pooling2d_1	(None, 512)
+      dense_1	(None, 1024)
+      dropout_1	(None, 1024)
+      dense_2	(None, 100)
 
 
+#### Performance ####
+   
+
+| Model |  | Total Params |  | Trainable Params |  | Depth |  | Epochs |  | Time |  | Top-1 |  | Top-5 |
+| ----- |  | ------------ |  | ---------------- |  | ----- |  | ------ |  | ---- |  | ----- |  | ----- |
+|   A   |  |   134.67M    |  |     127.03M      |  |   25  |  |  128   |  | 4:12 |  | 0.724 |  | 0.905 |
+|   B   |  |    15.34M    |  |       7.71M      |  |   23  |  |   96   |  | 2:42 |  | 0.753 |  | 0.939 |
+| Keras |  |   138.36M    |  |                  |  |   23  |  |        |  |      |  | 0.713 |  | 0.901 |
+
+Where:
+
+* Epochs - number of training epochs to achieve stated accuracy
+* Time - training time in hours:minutes to achieve stated accuracy
+* Top-1 - Top 1 accuracy of trained model when evaluated using test data
+* Top-5 - Top 5 accuracy of trained model when evaluated using test data
+* Keras - characteristics of the Keras Vgg16 model
+
+### Resnet50 ###
+
+The Resnet50 models share the following hyperparmeters:
+
+* optimizer - adam
+* learning rate - 0.0001
+* locked layers - 79
+
+Refer to the Hyperparameters section for the two Resnet50 top architectures.
+
+#### Performance ####
+
+| Model |  | Total Params |  | Trainable Params |  | Depth |  | Epochs |  | Time |  | Top-1 |  | Top-5 |
+| ----- |  | ------------ |  | ---------------- |  | ----- |  | ------ |  | ---- |  | ----- |  | ----- |
+|   D   |  |    75.13M    |  |      73.62M      |  |  181  |  |  160   |  | 5:00 |  | 0.737 |  | 0.913 |
+|   E   |  |    25.79M    |  |      24.29M      |  |  179  |  |   32   |  | 1:00 |  | 0.785 |  | 0.945 |
+| Keras |  |    25.64M    |  |                  |  |  168  |  |        |  |      |  | 0.749 |  | 0.921 |
 
 
+### InceptionV3 ###
 
+The Inception models share the following hyperparameters:
 
+* optimizer - stochastic gradient descent
+* learing rate - 0.001
+* locked layers - 165
 
+Below are the top architectures for the B and C models.
 
+    Top B:
+      flatten_1	(None, 131072)
+      dense_1	(None, 512)
+      dropout_1	(None, 512)
+      dense_2	(None, 256)
+      dropout_2	(None, 256)
+      dense_3	(None, 100)
 
-        
+    Top C:
+      global_average_pooling2d_1	(None, 2048)
+      dense_1	(None, 1024)
+      dropout_1	(None, 1024)
+      dense_2	(None, 100)
 
+#### Performance ####
 
-
-
-
-        
+| Model |  | Total Params |  | Trainable Params |  | Depth |  | Epochs |  | Time  |  | Top-1 |  | Top-5 |
+| ----- |  | ------------ |  | ---------------- |  | ----- |  | ------ |  | ----  |  | ----- |  | ----- |
+|   B   |  |    89.07M    |  |      83.91M      |  |  317  |  |  272   |  | 15:00 |  | 0.777 |  | 0.927 |
+|   C   |  |    24.00M    |  |      18.84M      |  |  315  |  |   32   |  |  1:45 |  | 0.805 |  | 0.951 |
+| Keras |  |    23.85M    |  |                  |  |  159  |  |        |  |       |  | 0.779 |  | 0.937 |
 
 
