@@ -1,25 +1,26 @@
-# readme.md #
+# readme.md
 
-## Introduction ##
+## Introduction
 
 Recently, I've been studying machine learning.  As part of the coursework, I gained an appreciation for using published, pre-trained models as the starting point for new work.  In particular, fine tuning existing models looks like a promising approach.  This strategy is also called Transfer Learning.
 
 This project takes an existing dataset (10,000 labeled images of airplanes) and fine tunes existing Keras models to perform image recognition.
 
-## Dataset ##
+## Dataset
 
 The FGVC-Aircraft Benchmark (Fine-Grained Visual Classification of Aircraft, S. Maji, J. Kannala, E. Rahtu, M. Blaschko, A. Vedaldi, arXiv.org, 2013) is the dataset for my project.  A complete description can be found here:
 
-    http://www.robots.ox.ac.uk/~vgg/data/fgvc-aircraft/
+[FGVC-Aircraft](http://www.robots.ox.ac.uk/~vgg/data/fgvc-aircraft/)
 
 This dataset was used for a 2013 fine-grained recognition challenge.  The fact that this dataset was composed by professionals removes significant sources of error and allowed me to focus exclusively on the recognition problem.  Although the data is organized into three tiers (variant, family, manufacturer), the models below are tuned to recognize variants only.
 
 With a little bit of guidance most people can be trained to differentiate between a Boeing 747 and a Boeing 737.  In the nomenclature of the dataset, Boeing 747 and Boeing 737 are examples of families.  Within an individual family, Boeing 737 for example, there are multiple variants: 737-200, 737-400, 737-900, etc.  Normally, the relative length of the fuselage is a good clue for determining variant.  However, the differences can be subtle - fertile ground for machine learning. The dataset contains 100 different variants; there are 100 different examples of each variant.  Hence 10,000 images total.  
 
 Broadly speaking, the dataset is divided into three partitions:
-- train, 3334 images
-- validation, 3333 images
-- test, 3333 images
+
+* train, 3334 images
+* validation, 3333 images
+* test, 3333 images
 
 For the purposes of this project, I combined the train and validation partitions and used them for training the models.  I used the test partition as is for evaluating the performance of the models.  To summarize:
 
@@ -29,7 +30,7 @@ For the purposes of this project, I combined the train and validation partitions
 At no point in time were the models ever trained using the test data; the test data was only used for evaluating performance.
 
 
-## Development Environment ##
+## Development Environment
 
 I began this project on an Ubuntu PC without a GPU.  After gaining some traction, I realized the training times were too long to realistically make progress.  For example, some of my early non-GPU training runs were taking approximately one hour per epoch.  This was unacceptible and I invested in an Nvidia GeForce 1060 GPU.  Installing the GPU and associated software was a minor project in itself.  Below are a few details.
 
@@ -55,7 +56,7 @@ Notes:
 2. Following the Google recommendation, tensorflow and Keras components installed and executed using a virtual environment.
 
 
-## Preparing the Dataset ##
+## Preparing the Dataset
 
 Download the 'Data, annotations and evaluation' archive from the above fgvc-aircraft link.  Extracting the archive yields the following directory structure:
 
@@ -69,7 +70,7 @@ Download the 'Data, annotations and evaluation' archive from the above fgvc-airc
             images/
                 10,000 .jpg files, each containing an aircraft image
 
-### Variants ###
+### Variants
 
 Variants.txt is a list of the 100 aircraft variants found in the dataset. Below is a snippet which enumerates the Boeing 737 variants:
 
@@ -82,7 +83,7 @@ Variants.txt is a list of the 100 aircraft variants found in the dataset. Below 
     737-800
     737-900
 
-### Bounding Box ###
+### Bounding Box
 
 For each aircraft found in the images directory, images_box.txt specifies the bounding box for that image.  Sample line:
 
@@ -93,7 +94,7 @@ This means that the bounding box for the image file 1340192.jpg has the coordina
     lower right corner (964,462)
 As you would guess, images_box.txt is used for image preprocessing.  See image_boxer.py below.
 
-### Partition Members ###
+### Partition Members
 
 Images_variant_train, images_variant_val and images_variant_test .txt files list the members of the train, validation and test partitions.  Each line from the file is an (image name,variant) pair.  For example:
 
@@ -102,7 +103,7 @@ Images_variant_train, images_variant_val and images_variant_test .txt files list
 In other words, the image file 1042824.jpg is a picture of the Boeing 707-320 aircraft variant.
 
 
-## Preparing the git archive ##
+## Preparing the git archive
 
 If you desire to experiment with the code and dataset, clone the archive into the
 
@@ -129,15 +130,15 @@ directory.  Ignoring the details of the dataset, this produces the following dir
 Sections below elucidate each one of these components.
 
 
-## Components ##
+## Components
 
-### Boxed Images ###
+### Boxed Images
 
 The training/evaluation code assumes that there is a fgvc-aircraft-2013b/data/boxed directory containing the boxed image of each aircraft found in the fgvc-aircraft-2013b/data/images directory.  This is a preprocessing step to cut execution time.
 
 To experiment with the code, copy image_boxer.py to fgvc-aircraft-2013b/data, create the fgvc-aircraft-2013b/data/boxed directory, then run image_boxer.py.  Using the contents of images_box.txt, the utility appropriately populates the boxed directory.
 
-### Data Generators ###
+### Data Generators
 
 I started out on this project using arrays to hold the aircraft images.  It didn't take very long to figure out that all of my dataset couldn't be stored in memory.  Besides, a dataset containing 10K examples isn't considered large.  How were other people handling truly large datasets?
 
@@ -145,7 +146,7 @@ Data generators are a Keras mechanism for loading and feeding data into a model 
 
 After further research, I hit upon the following link:
 
-    https://stanford.edu/~shervine/blog/keras-how-to-generate-data-on-the-fly
+[A detailed example of how to use data generators with Keras](https://stanford.edu/~shervine/blog/keras-how-to-generate-data-on-the-fly)
 
 The article describes a DataGenerator which removes the directory structure limitation; its structure is purposefully generic.  One tailors this code via: 
 
@@ -155,7 +156,7 @@ The article describes a DataGenerator which removes the directory structure limi
 
 Other than some trivial modifications, this is not my code.  See my_classes.py for details.
 
-### Tailoring the DataGenerator ###
+### Tailoring the DataGenerator
 
 Refer to the above stanford link.  The lists needed for training, etc. are first organized into the partition dictionary:
 
@@ -171,7 +172,7 @@ A labels dictionary is the third component needed for tailoring the DataGenerato
 
 Code in my_utils.py populates these structures at program start-up.  Code in exec_model.py combines the train and val lists into a single training list containing 6667 members.
 
-### Data Augmentation ###
+### Data Augmentation
 
 As stated above, this project uses 6667 images for model training, and the remaining 3333 images for model evaluation.  For a model with 100 classes, this is not that much data.  How can you train it without overfitting?
 
@@ -197,7 +198,7 @@ The routine randomly selects one of five image augmentation techniques.  Each on
 
 Step back from the implementation details and consider the larger picture.  With augmentation enabled, this means that the model will never see the same training image twice.  Effectively, this multiplies the size of our training set and gives us the ability to adequately train a model using a modest dataset. 
 
-### Batch Normalization ###
+### Batch Normalization
 
 Dealing with BatchNorm was the most difficult part of this project.  As mentioned above, Transfer learning involves taking an existing pre-trained model, locking down its lower layers (trainable=False), and then training the upper layers with a different dataset.  It turns out that BatchNorm (and Dropout) behave differently when in training mode versus evaluation mode.
 
@@ -205,16 +206,16 @@ Specifically, when in training mode, BatchNorm uses the statistics of the new da
 
 Assume that we've partially trained a model then evaluate its performance. Below is evidence of the BatchNorm issue:
 
-|    |           |  |   Train | |   Eval |
-|    |           |  |   ----- | |   ---- |
-|    | top-1     |  |   0.639 | |  0.010 |
-|    | top-5     |  |   0.831 | |  0.051 |
+|   Accuracy    |     Train |       Eval |
+| :-----------: | :-------: | :--------: |
+|     top-1     |     0.639 |      0.010 |
+|     top-5     |     0.831 |      0.051 |
 
 The train column refers to the top one and five accuracies of the final epoch when running model.fit() using the training set.  The eval column refers to the same accuracies when running model.evaluate() using the test set.  This is puzzling because the train column suggests the model is converging; the eval column strongly suggests otherwise.
 
 There is significant Internet discussion on this issue.  Below is a good link:
 
-    [http://blog.datumbox.com/the-batch-normalization-layer-of-keras-is-broken/](URL)
+[The Batch Normalization layer of Keras is broken](http://blog.datumbox.com/the-batch-normalization-layer-of-keras-is-broken/)
 
 In this post, V. Vryniotis describes the problem, how to reproduce it, an implied workaround and proposes Keras patch to resolve this issue.  So far, his patch has not been incorporated into Keras.
 
@@ -253,9 +254,9 @@ This is just a workaround.  As described V. Vryniotis' post, BatchNorm, when in 
 
 
 
-## Execution ##
+## Execution
 
-### Program Structure ###
+### Program Structure
 
 The overall structure of the tuning code is simple:
 
@@ -300,7 +301,7 @@ The tuning code uses a dictionary, model_params, to organize all parameters into
 
 A typical tuning session involves setting the model, rev and run_mode variables in exec_model.py, then executing the script.
 
-### Run mode ###
+### Run mode
 
 The tuning code supports five different modes of operation.
 
@@ -310,7 +311,7 @@ The tuning code supports five different modes of operation.
     summary        Write a summary of the current model to StdOut.
     noop           No operation, useful for verifying everything ok before training.
 
-### Logs directory ###
+### Logs directory
 
 The logs directory contains files from previous runs of the tuning code. For example, below are the log files for rev-a of the vgg16 model:
 
@@ -318,29 +319,29 @@ The logs directory contains files from previous runs of the tuning code. For exa
     Evaluation output: vgg16-a-eval.txt
     Summary output: vgg16-a-summary.txt
     
-### Saved_models directory ###
+### Saved_models directory
 
 This directory is empty in the git archive.  It is populated with model weights as part of program execution.  At program start, code determines if an appropriately named weights file exists in this directory.  If so, logic loads the model's weights and uses them for subsequent training or evaluation operations.  Otherwise, code creates the model from scratch. On training completion, logic saves the updated model weights back to this directory.
 
-### Hyperparameters ###
+### Hyperparameters
 
 The tuning code supports multiple hyperparameters.  The more important ones are mentioned below.
 
-#### model_params['locked_layers'] ####
+#### model_params['locked_layers']
 
 Locked layers controls how many of the lower layers of a model are 'locked', that is not trainable.  From machine learning theory, we expect that the lower layers of a model tuned on the ImageNet dataset (our case) would work without alteration for a dataset of aircraft variants.  Locked layers is a key idea in taking a model trained on dataset A, and then fine tuning it to recognize objects in dataset B.  
 
 Setting run_mode='summary' will generate a model summary.  The resulting output is helpful in setting a logical value for locked layers.  See imagenetV3-b-summary.txt in the logs directory for an example.
 
-#### model_params['optimizer_name'] ####
+#### model_params['optimizer_name']
 
 Optimizer name specifies the optimizer used for the training runs.  Only adam and sgd are supported; it is trivial to add others.
 
-#### model_params['learning_rate'] ####
+#### model_params['learning_rate']
 
 Sets the learning rate for the chosen optimizer.
 
-#### Top Architecture ####
+#### Top Architecture
 
 Each model supports two different top architectures.  Resnet50 examples:
 
@@ -360,11 +361,11 @@ Each model supports two different top architectures.  Resnet50 examples:
 
 A model's top layers composition strongly impacts performance.  See the Results section.
 
-## Results ##
+## Results
 
 My goal all along was to achieve accuracy comparable to that published in the Keras documentation for models fine tuned to a different dataset.  Before discussing results, below is the raw data for the various models.
 
-### Vgg16 ###
+### Vgg16
 
 The Vgg16 models share the following hyperparameters:
 
@@ -389,14 +390,14 @@ Below are the top architectures for the A and B models.
       dense_2	(None, 100)
 
 
-#### Performance ####
+#### Performance
    
 
-| Model |  | Total Params |  | Trainable Params |  | Depth |  | Epochs |  | Time |  | Top-1 |  | Top-5 |
-| ----- |  | ------------ |  | ---------------- |  | ----- |  | ------ |  | ---- |  | ----- |  | ----- |
-|   A   |  |   134.67M    |  |     127.03M      |  |   25  |  |  128   |  | 4:12 |  | 0.724 |  | 0.905 |
-|   B   |  |    15.34M    |  |       7.71M      |  |   23  |  |   96   |  | 2:42 |  | 0.753 |  | 0.939 |
-| Keras |  |   138.36M    |  |                  |  |   23  |  |        |  |      |  | 0.713 |  | 0.901 |
+|  Model  |  Total Params  |  Trainable Params  |   Depth  |   Epochs  |   Time  |   Top-1  |   Top-5  |
+| :-----: | :------------: | :----------------: | :------: | :-------: | :-----: | :------: | :------: |
+|   A     |     134.67M    |       127.03M      |     25   |    128    |   4:12  |   0.724  |   0.905  |
+|   B     |      15.34M    |        7.71M       |     23   |     96    |   2:42  |   0.753  |   0.939  |
+| Keras   |     138.36M    |                    |     23   |           |         |   0.713  |   0.901  |
 
 Where:
 
@@ -404,9 +405,10 @@ Where:
 * Time - training time in hours:minutes to achieve stated accuracy
 * Top-1 - Top 1 accuracy of trained model when evaluated using test data
 * Top-5 - Top 5 accuracy of trained model when evaluated using test data
-* Keras - characteristics of the Keras Vgg16 model
+* Keras - characteristics of the Keras model, in this case Vgg16
 
-### Resnet50 ###
+
+### Resnet50
 
 The Resnet50 models share the following hyperparmeters:
 
@@ -416,16 +418,16 @@ The Resnet50 models share the following hyperparmeters:
 
 Refer to the Hyperparameters section for the two Resnet50 top architectures.
 
-#### Performance ####
+#### Performance
 
-| Model |  | Total Params |  | Trainable Params |  | Depth |  | Epochs |  | Time |  | Top-1 |  | Top-5 |
-| ----- |  | ------------ |  | ---------------- |  | ----- |  | ------ |  | ---- |  | ----- |  | ----- |
-|   D   |  |    75.13M    |  |      73.62M      |  |  181  |  |  160   |  | 5:00 |  | 0.737 |  | 0.913 |
-|   E   |  |    25.79M    |  |      24.29M      |  |  179  |  |   32   |  | 1:00 |  | 0.785 |  | 0.945 |
-| Keras |  |    25.64M    |  |                  |  |  168  |  |        |  |      |  | 0.749 |  | 0.921 |
+|  Model  |  Total Params  |  Trainable Params  |   Depth  |   Epochs  |   Time  |   Top-1  |   Top-5  |
+| :-----: | :------------: | :----------------: | :------: | :-------: | :-----: | :------: | :------: |
+|   D     |      75.13M    |        73.62M      |    181   |    160    |   5:00  |   0.737  |   0.913  |
+|   E     |      25.79M    |        24.29M      |    179   |     32    |   1:00  |   0.785  |   0.945  |
+| Keras   |      25.64M    |                    |    168   |           |         |   0.749  |   0.921  |
 
 
-### InceptionV3 ###
+### InceptionV3
 
 The Inception models share the following hyperparameters:
 
@@ -449,12 +451,25 @@ Below are the top architectures for the B and C models.
       dropout_1	(None, 1024)
       dense_2	(None, 100)
 
-#### Performance ####
+#### Performance
 
-| Model |  | Total Params |  | Trainable Params |  | Depth |  | Epochs |  | Time  |  | Top-1 |  | Top-5 |
-| ----- |  | ------------ |  | ---------------- |  | ----- |  | ------ |  | ----  |  | ----- |  | ----- |
-|   B   |  |    89.07M    |  |      83.91M      |  |  317  |  |  272   |  | 15:00 |  | 0.777 |  | 0.927 |
-|   C   |  |    24.00M    |  |      18.84M      |  |  315  |  |   32   |  |  1:45 |  | 0.805 |  | 0.951 |
-| Keras |  |    23.85M    |  |                  |  |  159  |  |        |  |       |  | 0.779 |  | 0.937 |
+|  Model  |  Total Params  |  Trainable Params  |   Depth  |   Epochs  |   Time  |   Top-1  |   Top-5  |
+| :-----: | :------------: | :----------------: | :------: | :-------: | :-----: | :------: | :------: |
+|   B     |      89.07M    |        83.91M      |    317   |    272    |   15:00 |   0.777  |   0.927  |
+|   C     |      24.00M    |        18.84M      |    315   |     32    |    1:45 |   0.805  |   0.951  |
+| Keras   |      23.85M    |                    |    159   |           |         |   0.779  |   0.937  |
+
+
+### Conclusions
+
+In the performance tables above, notice how the first version of each model has significantly more parameters than its second version.  For example, compare InceptionV3-B versus InceptionV3-C.  This difference is entirely due to the model's top architecture.  Also note the corresponding decrease in training time for models using the simpler top architecture.
+
+When I first observed this, it surprised me.  After duplicating a similar result on a different model, I changed strategy for evaluating hyperparameters.  Instead training each hyperparameter combination to the desired accuracy, I looked for combinations which demonstrated significant convergence in 32 to 64 epochs.  From there, I invested further training time into the best candidates.
+
+Second, notice that the simpler top architectures gives accuracies which are higher that those quoted for the corresponding Keras model.  I don't have a reason why.  I would speculate that because the Keras models are discerning 1000 different classes, instead of 100, they are solving a significantly more difficult problem, and  higher accuracies are more difficult to achieve.
+
+Finally, notice that all 6 of the FGVC models attain performances comparable to their corresponding Keras versions.  Particulary for the models which trained very quickly, these numbers validate the efficacy of transfer learning.
+
+
 
 
