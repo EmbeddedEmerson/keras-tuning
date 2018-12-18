@@ -136,7 +136,7 @@ Sections below elucidate each one of these components.
 
 The training/evaluation code assumes that there is a fgvc-aircraft-2013b/data/boxed directory containing the boxed image of each aircraft found in the fgvc-aircraft-2013b/data/images directory.  This is a preprocessing step to cut execution time.
 
-To experiment with the code, copy image_boxer.py to fgvc-aircraft-2013b/data, create the fgvc-aircraft-2013b/data/boxed directory, then run image_boxer.py.  Using the contents of images_box.txt, the utility appropriately populates the boxed directory.
+To experiment with the code, copy image_boxer.py to the fgvc-aircraft-2013b/data/ directory, then execute it.   The utility creates the boxed/ directory, and then using the contents of images_box.txt, appropriately populates the boxed directory.
 
 ### Data Generators
 
@@ -405,7 +405,7 @@ Where:
 * Time - training time in hours:minutes to achieve stated accuracy
 * Top-1 - Top 1 accuracy of trained model when evaluated using test data
 * Top-5 - Top 5 accuracy of trained model when evaluated using test data
-* Keras - characteristics of the Keras model, in this case Vgg16
+* Keras - characteristics of the Keras model, in this case Vgg16. Source: [Keras Applications](https://keras.io/applications/). 
 
 
 ### Resnet50
@@ -466,7 +466,7 @@ In the performance tables above, notice how the first version of each model has 
 
 When I first observed this, it surprised me.  After duplicating a similar result on a different model, I changed strategy for evaluating hyperparameters.  Instead training each hyperparameter combination to the desired accuracy, I looked for combinations which demonstrated significant convergence in 32 to 64 epochs.  From there, I invested further training time into the best candidates.
 
-Second, notice that the simpler top architectures gives accuracies which are higher that those quoted for the corresponding Keras model.  I don't have a reason why.  I would speculate that because the Keras models are discerning 1000 different classes, instead of 100, they are solving a significantly more difficult problem, and  higher accuracies are more difficult to achieve.
+Second, notice that the simpler top architectures gives accuracies which are higher that those quoted for the corresponding Keras model.  I don't have a reason why.  I would speculate that because the Keras models are discerning 1000 different classes, instead of 100, they are solving a significantly more difficult problem, and  higher accuracies are more difficult to achieve.  Again, this is speculation.
 
 Finally, notice that all 6 of the FGVC models attain performances comparable to their corresponding Keras versions.  Particulary for the models which trained very quickly, these numbers validate the efficacy of transfer learning.
 

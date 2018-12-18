@@ -1,23 +1,12 @@
 #!/usr/bin/env python3
 
+import os
 from PIL import Image
 
 in_prefix = 'images/'
 out_prefix = 'boxed/'
-list_of_images = None
 bounding_box_dict = {}
 total_num_entries = 10000
-
-def set_data_subset(subset_name):
-    global list_of_images
-    if subset_name == 'train':
-        list_of_images = 'images_variant_train.txt'
-    elif subset_name == 'val':
-        list_of_images = 'images_variant_val.txt'
-    elif subset_name == 'test':
-        list_of_images = 'images_variant_test.txt'
-    else:
-        assert False, 'unrecognized data subset name'
 
 def populate_bounding_box_dict(dict_fname):
     fh = None
@@ -72,37 +61,58 @@ def box_image(image_name):
     img.close()
     cropped_image.close()
 
+def prepare_boxed_directory():
+    boxed_dir = os.path.join(os.getcwd(), out_prefix)
+    if not os.path.isdir(boxed_dir):
+        os.makedirs(boxed_dir)
+        print('boxed dir: ' + boxed_dir + ' created');
+    else:
+        print('boxed dir: ' + boxed_dir + ' already exists');
+
+def create_boxed_images(fname):
+    count = 0
+    fh = None
+    try:
+        fh = open(fname, encoding='utf8')
+        for lineno, line in enumerate(fh, start=1):
+            (image_name, remainder) = line.split(' ',1)
+            variant = remainder.strip()
+            print('Line: ' + str(lineno) + ' Image name: ' + image_name + ', variant: ' + variant)
+            box_image(image_name)
+            count += 1
+    finally:
+        if fh is not None:
+            fh.close()
+    return count
+        
 #------------------------------------------------------------------------------------------
 #
 #	Program entry point.
 #
-#   First, specify which partition ('train', 'val' or 'test')
-#   of the images to box.
-#
-#   Second, build the dict containing the bounding box
-#   of the primary aircraft for each image.
-#
-#   Then, for each image specified in list_of_images,
-#   read image from the images folder, crop it using associated
-#   bounding box to obtain primary aircraft image, then
-#   write image to the boxed folder.
-#
 
-# specify the data subset we are manipulating
-set_data_subset('test')
+partition_list = ['images_variant_train.txt',
+                  'images_variant_val.txt',
+                  'images_variant_test.txt']
 
-# populate the bounding box dictionary
+# create the boxed directory
+prepare_boxed_directory()
+
+# populate the bounding box dictionary and error check
 populate_bounding_box_dict('images_box.txt')
+assert len(bounding_box_dict) == total_num_entries, 'Unexpected bounding box dictionary length'
 
-fh = None
-try:
-    fh = open(list_of_images, encoding='utf8')
-    for lineno, line in enumerate(fh, start=1):
-        (image_name, remainder) = line.split(' ',1)
-        variant = remainder.strip()
-        print('Line: ' + str(lineno) + ' Image name: ' + image_name + ', variant: ' + variant)
-        box_image(image_name)
-finally:
-    if fh is not None:
-        fh.close()
+partition_list = [('train', 'images_variant_train.txt'),
+                  ('val', 'images_variant_val.txt'),
+                  ('test', 'images_variant_test.txt')]
+
+# for each partition, create boxed images
+total_images = 0
+for value in partition_list:
+    (partition_name, list_fname) = value
+    print('creating boxed images for partition: ' + partition_name + ', using: ' + list_fname)
+    total_images += create_boxed_images(list_fname)
+
+# error check
+assert total_images == total_num_entries, 'Unexpected number of images boxed'
+
 
